@@ -64,18 +64,18 @@ export default function BookingCalendar({ selectedDate, onDateSelect }: BookingC
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   return (
-    <div className="bg-white border border-border rounded-lg p-4">
+    <div className="bg-background dark:bg-background border border-border rounded-lg p-4">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <Button 
           variant="ghost" 
           size="sm" 
           onClick={previousMonth}
-          className="h-8 w-8 p-0"
+          className="h-8 w-8 p-0 hover:bg-muted"
         >
           <ChevronLeft className="h-4 w-4" />
         </Button>
-        <h3 className="font-medium text-foreground">
+        <h3 className="font-semibold text-foreground text-lg">
           {formatDate(currentMonth)}
         </h3>
         <Button 
@@ -111,14 +111,14 @@ export default function BookingCalendar({ selectedDate, onDateSelect }: BookingC
               onClick={() => handleDateClick(date)}
               disabled={isPast}
               className={`
-                h-10 w-full text-sm rounded-md transition-colors
+                h-10 w-full text-sm rounded-md transition-all duration-200 font-medium
                 ${isPast 
-                  ? 'text-muted-foreground/40 cursor-not-allowed' 
-                  : 'hover:bg-muted cursor-pointer'
+                  ? 'text-muted-foreground/30 cursor-not-allowed bg-muted/20' 
+                  : 'text-foreground hover:bg-primary/10 hover:text-primary cursor-pointer border border-transparent hover:border-primary/20'
                 }
-                ${!isCurrent ? 'text-muted-foreground/60' : ''}
-                ${isToday_ && !isSelected_ ? 'bg-accent text-accent-foreground font-semibold' : ''}
-                ${isSelected_ ? 'bg-primary text-primary-foreground font-semibold' : ''}
+                ${!isCurrent ? 'text-muted-foreground/50' : 'text-foreground'}
+                ${isToday_ && !isSelected_ ? 'bg-primary/20 text-primary font-bold border-primary/30' : ''}
+                ${isSelected_ ? 'bg-primary text-primary-foreground font-bold shadow-lg scale-105 border-primary' : ''}
               `}
             >
               {date.getDate()}
