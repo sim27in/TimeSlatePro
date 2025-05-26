@@ -238,22 +238,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Public booking routes (no auth required)
-  app.get('/api/book/:slug', async (req, res) => {
-    try {
-      const { slug } = req.params;
-      const bookingData = await storage.getBookingData(slug);
-      
-      if (!bookingData) {
-        return res.status(404).json({ message: "Booking page not found" });
-      }
-      
-      res.json(bookingData);
-    } catch (error) {
-      console.error("Error fetching booking data:", error);
-      res.status(500).json({ message: "Failed to fetch booking data" });
-    }
-  });
+
 
   app.get('/api/book/:slug/availability', async (req, res) => {
     try {
