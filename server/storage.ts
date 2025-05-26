@@ -210,10 +210,11 @@ export class DatabaseStorage implements IStorage {
 
   // Booking operations
   async getUserBySlug(slug: string): Promise<User | undefined> {
+    // For now, use the user ID directly as the slug
     const [user] = await db
       .select()
       .from(users)
-      .where(eq(users.slug, slug));
+      .where(eq(users.id, slug));
     return user;
   }
 
