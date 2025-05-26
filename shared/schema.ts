@@ -143,6 +143,8 @@ export const insertServiceSchema = createInsertSchema(services).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  price: z.coerce.string(), // Convert number to string for decimal field
 });
 
 export const insertAvailabilitySchema = createInsertSchema(availability).omit({
