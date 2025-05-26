@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,8 @@ import BookingCalendar from "@/components/booking/calendar";
 import ServiceSelector from "@/components/booking/service-selector";
 import TimeSlots from "@/components/booking/time-slots";
 import { Skeleton } from "@/components/ui/skeleton";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 import type { Service } from "@shared/schema";
 
 interface BookingData {
@@ -28,6 +30,7 @@ export default function PublicBookingPage() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
+  const { toast } = useToast();
 
   // Debug logging
   console.log('Booking state:', { selectedService, selectedDate, selectedTime });
@@ -75,16 +78,46 @@ export default function PublicBookingPage() {
   const { user, services } = bookingData;
   const activeServices = services.filter(service => service.isActive);
 
-  const handleBookAppointment = () => {
-    if (selectedService && selectedDate && selectedTime) {
-      // Navigate to checkout with booking details
-      const bookingParams = new URLSearchParams({
-        serviceId: selectedService.id.toString(),
-        date: selectedDate,
-        time: selectedTime,
-        slug: slug!
+  const createAppointmentMutation = useMutation({
+    mutationFn: (appointmentData: any) =>
+      apiRequest("POST", "/api/appointments", appointmentData),
+    onSuccess: (response: any) => {
+      // Redirect to checkout with appointment ID
+      window.location.href = `/checkout?appointmentId=${response.id}`;
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Booking Failed",
+        description: error.message || "Failed to create appointment. Please try again.",
+        variant: "destructive",
       });
-      window.location.href = `/checkout?${bookingParams.toString()}`;
+    },
+  });
+
+  const handleBookAppointment = () => {
+    if (selectedService && selectedDate && selectedTime && bookingData) {
+      // Calculate end time based on service duration
+      const startTime = selectedTime;
+      const [hours, minutes] = startTime.split(':').map(Number);
+      const startDate = new Date();
+      startDate.setHours(hours, minutes, 0, 0);
+      const endDate = new Date(startDate.getTime() + selectedService.duration * 60000);
+      const endTime = endDate.toTimeString().slice(0, 5);
+
+      const appointmentData = {
+        serviceId: selectedService.id,
+        userId: bookingData.user.id,
+        clientName: bookingData.user.firstName ? `${bookingData.user.firstName} ${bookingData.user.lastName || ''}` : 'Client',
+        clientEmail: bookingData.user.email,
+        appointmentDate: selectedDate,
+        startTime: startTime,
+        endTime: endTime,
+        totalAmount: selectedService.price,
+        paymentStatus: 'pending' as const,
+        status: 'pending' as const,
+      };
+
+      createAppointmentMutation.mutate(appointmentData);
     }
   };
 
@@ -217,9 +250,13 @@ export default function PublicBookingPage() {
                 <Button 
                   size="lg" 
                   onClick={handleBookAppointment}
+                  disabled={createAppointmentMutation.isPending}
                   className="button-hover"
                 >
-                  Book & Pay ${selectedService.price}
+                  {createAppointmentMutation.isPending 
+                    ? "Creating Appointment..." 
+                    : `Book & Pay $${selectedService.price}`
+                  }
                 </Button>
               </div>
             </CardContent>
