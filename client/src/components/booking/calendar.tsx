@@ -118,7 +118,15 @@ export default function BookingCalendar({ selectedDate, onDateSelect }: BookingC
                 }
               }}
               disabled={isPast}
-              className="h-10 w-full text-sm rounded-md transition-colors hover:bg-primary/10 hover:text-primary cursor-pointer font-bold text-[#fafafa] bg-[#1e1e1e]"
+              className={`
+                h-10 w-full text-sm rounded-md transition-colors font-medium
+                ${isPast 
+                  ? 'text-muted-foreground/30 cursor-not-allowed bg-muted/20 hover:bg-muted/20' 
+                  : 'text-foreground hover:bg-primary/10 hover:text-primary cursor-pointer'
+                }
+                ${!isCurrent ? 'text-muted-foreground/50' : 'text-foreground'}
+                ${isSelected_ ? 'bg-primary text-primary-foreground font-bold' : isToday_ ? 'bg-primary/20 text-primary font-bold' : ''}
+              `}
             >
               {date.getDate()}
             </button>
