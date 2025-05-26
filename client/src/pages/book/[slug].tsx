@@ -42,7 +42,7 @@ export default function PublicBookingPage() {
 
   const createAppointmentMutation = useMutation({
     mutationFn: (appointmentData: any) =>
-      apiRequest("POST", "/api/appointments", appointmentData),
+      apiRequest("POST", `/api/book/${slug}/appointment`, appointmentData),
     onSuccess: (response: any) => {
       // Redirect to checkout with appointment ID
       window.location.href = `/checkout?appointmentId=${response.id}`;
