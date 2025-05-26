@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ThemeToggle } from "@/components/theme-toggle";
+import AnimatedCalendar from "@/components/animated-calendar";
+import AnimatedSteps from "@/components/animated-steps";
 import {
   Calendar,
   Clock,
@@ -127,39 +129,9 @@ export default function Landing() {
               </div>
             </div>
 
-            {/* Hero Mockup */}
-            <div className="relative">
-              <div className="relative bg-card dark:bg-card border rounded-2xl shadow-2xl p-6 transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                <div className="bg-gradient-to-br from-primary/20 to-primary/5 dark:from-primary/30 dark:to-primary/10 rounded-xl p-6 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-lg">Today's Schedule</h3>
-                    <Badge variant="secondary">Live</Badge>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="bg-background dark:bg-background/50 rounded-lg p-3 flex items-center space-x-3">
-                      <div className="h-2 w-2 bg-primary rounded-full"></div>
-                      <div>
-                        <p className="font-medium text-sm">Sarah Johnson</p>
-                        <p className="text-xs text-muted-foreground">
-                          Coaching Session • 10:00 AM
-                        </p>
-                      </div>
-                    </div>
-                    <div className="bg-background dark:bg-background/50 rounded-lg p-3 flex items-center space-x-3">
-                      <div className="h-2 w-2 bg-green-500 rounded-full"></div>
-                      <div>
-                        <p className="font-medium text-sm">Mike Chen</p>
-                        <p className="text-xs text-muted-foreground">
-                          Consultation • 2:30 PM
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-primary text-primary-foreground rounded-full p-4 shadow-lg">
-                <DollarSign className="h-6 w-6" />
-              </div>
+            {/* Animated Calendar Demo */}
+            <div className="relative flex justify-center lg:justify-end">
+              <AnimatedCalendar />
             </div>
           </div>
         </div>
