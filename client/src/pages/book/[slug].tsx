@@ -40,6 +40,22 @@ export default function PublicBookingPage() {
     enabled: !!slug,
   });
 
+  const createAppointmentMutation = useMutation({
+    mutationFn: (appointmentData: any) =>
+      apiRequest("POST", "/api/appointments", appointmentData),
+    onSuccess: (response: any) => {
+      // Redirect to checkout with appointment ID
+      window.location.href = `/checkout?appointmentId=${response.id}`;
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Booking Failed",
+        description: error.message || "Failed to create appointment. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
@@ -77,22 +93,6 @@ export default function PublicBookingPage() {
 
   const { user, services } = bookingData;
   const activeServices = services.filter(service => service.isActive);
-
-  const createAppointmentMutation = useMutation({
-    mutationFn: (appointmentData: any) =>
-      apiRequest("POST", "/api/appointments", appointmentData),
-    onSuccess: (response: any) => {
-      // Redirect to checkout with appointment ID
-      window.location.href = `/checkout?appointmentId=${response.id}`;
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Booking Failed",
-        description: error.message || "Failed to create appointment. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
 
   const handleBookAppointment = () => {
     if (selectedService && selectedDate && selectedTime && bookingData) {
