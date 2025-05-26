@@ -47,7 +47,9 @@ export const users = pgTable("users", {
 // Services that users offer
 export const services = pgTable("services", {
   id: serial("id").primaryKey(),
-  userId: varchar("user_id").references(() => users.id).notNull(),
+  userId: varchar("user_id")
+    .references(() => users.id)
+    .notNull(),
   name: varchar("name").notNull(),
   description: text("description"),
   duration: integer("duration").notNull(), // in minutes
@@ -61,7 +63,9 @@ export const services = pgTable("services", {
 // User availability settings
 export const availability = pgTable("availability", {
   id: serial("id").primaryKey(),
-  userId: varchar("user_id").references(() => users.id).notNull(),
+  userId: varchar("user_id")
+    .references(() => users.id)
+    .notNull(),
   dayOfWeek: integer("day_of_week").notNull(), // 0-6 (Sunday-Saturday)
   startTime: time("start_time").notNull(),
   endTime: time("end_time").notNull(),
@@ -73,8 +77,12 @@ export const availability = pgTable("availability", {
 // Appointments/bookings
 export const appointments = pgTable("appointments", {
   id: serial("id").primaryKey(),
-  userId: varchar("user_id").references(() => users.id).notNull(),
-  serviceId: integer("service_id").references(() => services.id).notNull(),
+  userId: varchar("user_id")
+    .references(() => users.id)
+    .notNull(),
+  serviceId: integer("service_id")
+    .references(() => services.id)
+    .notNull(),
   clientName: varchar("client_name").notNull(),
   clientEmail: varchar("client_email").notNull(),
   clientPhone: varchar("client_phone"),
@@ -151,7 +159,7 @@ export const insertAppointmentSchema = createInsertSchema(appointments).omit({
 
 // Types
 export type UpsertUser = typeof users.$inferInsert;
-export type User = typeof users.$inferSelect;
+export type SharedUser = typeof users.$inferSelect;
 export type InsertService = z.infer<typeof insertServiceSchema>;
 export type Service = typeof services.$inferSelect;
 export type InsertAvailability = z.infer<typeof insertAvailabilitySchema>;

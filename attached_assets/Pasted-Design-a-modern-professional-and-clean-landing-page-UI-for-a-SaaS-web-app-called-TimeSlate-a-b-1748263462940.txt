@@ -1,0 +1,90 @@
+Design a modern, professional, and clean landing page UI for a SaaS web app called "TimeSlate" — a booking and scheduling tool for solo professionals like coaches, therapists, and consultants.
+
+Match the layout, spacing, style, and structure of the provided reference image (Event Booking App landing page):
+
+Use a light background with primary accent colors of orange (#FF6B00) and charcoal grey (#2D2D2D).
+
+Rounded corners, subtle drop shadows, and generous white space.
+
+Soft gradients and abstract shapes for visuals.
+
+Responsive layout suitable for both desktop and mobile.
+
+🧩 Page Sections (with example text and content):
+
+1. Hero Section
+Headline: "The Smarter Way to Schedule Sessions"
+
+Subheadline: "TimeSlate helps coaches, consultants, and freelancers accept bookings with ease, sync calendars, and get paid — all in one tool."
+
+CTA Buttons:
+
+"Start Free Trial" (Primary)
+
+"Watch Demo" (Secondary)
+
+Mockup or illustration: Dashboard showing calendar booking or appointment list
+
+Badges: "Trusted by 5,000+ solo professionals" | "Secure payments via Stripe"
+
+2. Download & Integrations Section
+Highlight iOS/Android apps (if applicable) or link to Chrome extension (optional)
+
+Show icons/logos for: Stripe, Google Calendar, Google OAuth
+
+QR code placeholders if apps exist
+
+3. How It Works - Step-by-Step
+Step 1: Sign Up with Google or Email
+
+Step 2: Set Your Availability
+
+Step 3: Share Your Booking Link
+
+Step 4: Get Paid and Notified
+
+Use minimalistic icons or numbered illustrations for each step
+
+4. Key Benefits Section
+Title: “Why TimeSlate?”
+
+3–4 cards with icons:
+
+Secure Payments via Stripe
+
+Smart Reminders for Clients
+
+Calendar Sync with Google
+
+Custom Session Types
+
+5. App Demo Section
+Carousel of dashboard mockups (availability setup, booking screen, payments dashboard)
+
+6. Testimonials / Social Proof
+Carousel or cards with user testimonials and headshots
+
+Title: “What Our Solo Pros Are Saying”
+
+7. Pricing Preview
+“Simple Pricing for Growing Professionals”
+
+Two or three pricing tiers: Free, Pro, and Premium
+
+8. CTA Section
+Re-emphasize the free trial
+
+Add a second "Start Scheduling Today" button
+
+Footer
+Navigation: Features, Pricing, Contact, Terms, Privacy
+
+Social links and logo
+
+💡 Visual Style Notes:
+
+Font: Use modern sans-serif fonts (e.g., Inter, Poppins, or Manrope)
+
+Iconography: Minimal, flat design icons
+
+UI Mood: Professional but friendly — ideal for freelancers and service providers

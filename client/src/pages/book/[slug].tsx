@@ -2,11 +2,23 @@ import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useRoute } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Calendar, Clock, DollarSign, User } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -17,7 +29,7 @@ import { useToast } from "@/hooks/use-toast";
 import ServiceSelector from "@/components/booking/service-selector";
 import BookingCalendar from "@/components/booking/calendar";
 import TimeSlots from "@/components/booking/time-slots";
-import type { User, Service } from "@shared/schema";
+import type { SharedUser, Service } from "@shared/schema";
 import type { BookingFormData } from "@/lib/types";
 
 const bookingSchema = z.object({
@@ -30,7 +42,7 @@ const bookingSchema = z.object({
 type BookingForm = z.infer<typeof bookingSchema>;
 
 interface BookingData {
-  user: User;
+  user: SharedUser;
   services: Service[];
 }
 
@@ -55,7 +67,11 @@ export default function BookingPage() {
   });
 
   // Fetch booking page data
-  const { data: bookingData, isLoading, error } = useQuery<BookingData>({
+  const {
+    data: bookingData,
+    isLoading,
+    error,
+  } = useQuery<BookingData>({
     queryKey: [`/api/book/${slug}`],
     enabled: !!slug,
   });
@@ -126,7 +142,9 @@ export default function BookingPage() {
         <Card className="w-full max-w-md mx-4">
           <CardContent className="text-center pt-6">
             <User className="mx-auto h-12 w-12 text-muted-foreground/50" />
-            <h1 className="text-2xl font-bold text-foreground mt-4">Booking Page Not Found</h1>
+            <h1 className="text-2xl font-bold text-foreground mt-4">
+              Booking Page Not Found
+            </h1>
             <p className="text-muted-foreground mt-2">
               This booking page doesn't exist or has been disabled.
             </p>
@@ -144,7 +162,9 @@ export default function BookingPage() {
         <Card className="w-full max-w-md mx-4">
           <CardContent className="text-center pt-6">
             <Calendar className="mx-auto h-12 w-12 text-muted-foreground/50" />
-            <h1 className="text-2xl font-bold text-foreground mt-4">No Services Available</h1>
+            <h1 className="text-2xl font-bold text-foreground mt-4">
+              No Services Available
+            </h1>
             <p className="text-muted-foreground mt-2">
               This provider hasn't set up any bookable services yet.
             </p>
@@ -161,17 +181,24 @@ export default function BookingPage() {
         <div className="max-w-4xl mx-auto px-4 py-6">
           <div className="flex items-center space-x-4">
             <Avatar className="h-16 w-16 border-2 border-white shadow-lg">
-              <AvatarImage src={user.profileImageUrl || ""} alt={user.firstName || "Professional"} />
+              <AvatarImage
+                src={user.profileImageUrl || ""}
+                alt={user.firstName || "Professional"}
+              />
               <AvatarFallback className="bg-primary text-primary-foreground text-lg font-semibold">
                 {user.firstName?.[0] || user.email?.[0] || "U"}
               </AvatarFallback>
             </Avatar>
             <div>
               <h1 className="text-2xl font-bold text-foreground">
-                {user.firstName ? `${user.firstName} ${user.lastName || ''}`.trim() : user.businessName || "Professional"}
+                {user.firstName
+                  ? `${user.firstName} ${user.lastName || ""}`.trim()
+                  : user.businessName || "Professional"}
               </h1>
               <p className="text-muted-foreground">
-                {user.businessName || user.description || "Professional Services"}
+                {user.businessName ||
+                  user.description ||
+                  "Professional Services"}
               </p>
             </div>
           </div>
@@ -252,7 +279,10 @@ export default function BookingPage() {
                 </CardHeader>
                 <CardContent>
                   <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit)}
+                      className="space-y-4"
+                    >
                       <div className="grid md:grid-cols-2 gap-4">
                         <FormField
                           control={form.control}
@@ -261,7 +291,10 @@ export default function BookingPage() {
                             <FormItem>
                               <FormLabel>Full Name *</FormLabel>
                               <FormControl>
-                                <Input placeholder="Your full name" {...field} />
+                                <Input
+                                  placeholder="Your full name"
+                                  {...field}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -274,7 +307,11 @@ export default function BookingPage() {
                             <FormItem>
                               <FormLabel>Email Address *</FormLabel>
                               <FormControl>
-                                <Input type="email" placeholder="your@email.com" {...field} />
+                                <Input
+                                  type="email"
+                                  placeholder="your@email.com"
+                                  {...field}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -288,7 +325,10 @@ export default function BookingPage() {
                           <FormItem>
                             <FormLabel>Phone Number (Optional)</FormLabel>
                             <FormControl>
-                              <Input placeholder="Your phone number" {...field} />
+                              <Input
+                                placeholder="Your phone number"
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -301,7 +341,7 @@ export default function BookingPage() {
                           <FormItem>
                             <FormLabel>Additional Notes (Optional)</FormLabel>
                             <FormControl>
-                              <Textarea 
+                              <Textarea
                                 placeholder="Any specific topics or questions you'd like to discuss?"
                                 {...field}
                               />
@@ -310,13 +350,15 @@ export default function BookingPage() {
                           </FormItem>
                         )}
                       />
-                      <Button 
-                        type="submit" 
-                        className="w-full" 
+                      <Button
+                        type="submit"
+                        className="w-full"
                         size="lg"
                         disabled={createAppointmentMutation.isPending}
                       >
-                        {createAppointmentMutation.isPending ? "Booking..." : `Book Appointment - $${selectedService.price}`}
+                        {createAppointmentMutation.isPending
+                          ? "Booking..."
+                          : `Book Appointment - $${selectedService.price}`}
                       </Button>
                     </form>
                   </Form>
@@ -330,7 +372,9 @@ export default function BookingPage() {
             <Card>
               <CardHeader>
                 <CardTitle>Booking Summary</CardTitle>
-                <CardDescription>Review your appointment details</CardDescription>
+                <CardDescription>
+                  Review your appointment details
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {selectedService && (
@@ -338,14 +382,18 @@ export default function BookingPage() {
                     <div className="flex justify-between items-start">
                       <div>
                         <h4 className="font-medium">{selectedService.name}</h4>
-                        <p className="text-sm text-muted-foreground">{selectedService.description}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {selectedService.description}
+                        </p>
                         <div className="flex items-center mt-2 text-sm text-muted-foreground">
                           <Clock className="mr-1 h-4 w-4" />
                           {selectedService.duration} minutes
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-lg font-semibold text-primary">${selectedService.price}</p>
+                        <p className="text-lg font-semibold text-primary">
+                          ${selectedService.price}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -355,11 +403,11 @@ export default function BookingPage() {
                   <div className="flex items-center justify-between py-2 border-b border-border">
                     <span className="text-muted-foreground">Date:</span>
                     <span className="font-medium">
-                      {new Date(selectedDate).toLocaleDateString('en-US', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
+                      {new Date(selectedDate).toLocaleDateString("en-US", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
                       })}
                     </span>
                   </div>
@@ -369,9 +417,11 @@ export default function BookingPage() {
                   <div className="flex items-center justify-between py-2 border-b border-border">
                     <span className="text-muted-foreground">Time:</span>
                     <span className="font-medium">
-                      {new Date(`2000-01-01T${selectedTime}`).toLocaleTimeString('en-US', {
-                        hour: 'numeric',
-                        minute: '2-digit',
+                      {new Date(
+                        `2000-01-01T${selectedTime}`,
+                      ).toLocaleTimeString("en-US", {
+                        hour: "numeric",
+                        minute: "2-digit",
                         hour12: true,
                       })}
                     </span>
@@ -381,7 +431,9 @@ export default function BookingPage() {
                 {selectedService && (
                   <div className="flex items-center justify-between py-2 border-t border-border font-semibold">
                     <span>Total:</span>
-                    <span className="text-lg text-primary">${selectedService.price}</span>
+                    <span className="text-lg text-primary">
+                      ${selectedService.price}
+                    </span>
                   </div>
                 )}
               </CardContent>
