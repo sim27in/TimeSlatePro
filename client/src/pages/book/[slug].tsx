@@ -29,6 +29,9 @@ export default function PublicBookingPage() {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
 
+  // Debug logging
+  console.log('Booking state:', { selectedService, selectedDate, selectedTime });
+
   const { data: bookingData, isLoading, error } = useQuery<BookingData>({
     queryKey: [`/api/book/${slug}`],
     enabled: !!slug,
