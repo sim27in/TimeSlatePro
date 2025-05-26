@@ -67,6 +67,10 @@ function Router() {
           </Route>
         </>
       )}
+      
+      {/* Public booking page - accessible to everyone */}
+      <Route path="/book/:slug" component={BookingPage} />
+      
       <Route component={NotFound} />
     </Switch>
   );

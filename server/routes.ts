@@ -199,6 +199,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Public Booking Routes (no authentication required)
+  app.get('/api/book/:slug', async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const bookingData = await storage.getBookingData(slug);
+      
+      if (!bookingData) {
+        return res.status(404).json({ message: "Booking page not found" });
+      }
+      
+      res.json(bookingData);
+    } catch (error) {
+      console.error("Error fetching booking data:", error);
+      res.status(500).json({ message: "Failed to load booking page" });
+    }
+  });
+
+  app.get('/api/book/:slug/availability', async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const { selectedDate } = req.query;
+      
+      const user = await storage.getUserBySlug(slug);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      const availability = await storage.getAvailabilityByUserId(user.id);
+      const appointments = selectedDate 
+        ? await storage.getAppointmentsByDateRange(user.id, selectedDate as string, selectedDate as string)
+        : [];
+      
+      res.json({ availability, appointments });
+    } catch (error) {
+      console.error("Error fetching availability:", error);
+      res.status(500).json({ message: "Failed to fetch availability" });
+    }
+  });
+
   // Public booking routes (no auth required)
   app.get('/api/book/:slug', async (req, res) => {
     try {

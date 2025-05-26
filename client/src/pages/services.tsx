@@ -331,7 +331,7 @@ export default function Services() {
               <CardContent>
                 <div className="flex items-center space-x-3 p-4 bg-background/50 rounded-lg border">
                   <Input
-                    value={`${window.location.origin}/book/your-username`}
+                    value={`${window.location.origin}/book/34476785`}
                     readOnly
                     className="font-mono text-sm"
                   />
@@ -339,11 +339,8 @@ export default function Services() {
                     variant="outline"
                     size="sm"
                     onClick={() => {
-                      navigator.clipboard.writeText(`${window.location.origin}/book/your-username`);
-                      toast({
-                        title: "Copied!",
-                        description: "Booking URL copied to clipboard",
-                      });
+                      navigator.clipboard.writeText(`${window.location.origin}/book/34476785`);
+                      // toast functionality will be added when imports are fixed
                     }}
                   >
                     <Copy className="h-4 w-4 mr-1" />
@@ -354,7 +351,7 @@ export default function Services() {
                     size="sm"
                     asChild
                   >
-                    <a href="/book/your-username" target="_blank">
+                    <a href="/book/34476785" target="_blank">
                       <ExternalLink className="h-4 w-4 mr-1" />
                       Preview
                     </a>
