@@ -125,8 +125,7 @@ export default function BookingCalendar({ selectedDate, onDateSelect }: BookingC
                   : 'text-foreground hover:bg-primary/10 hover:text-primary cursor-pointer'
                 }
                 ${!isCurrent ? 'text-muted-foreground/50' : 'text-foreground'}
-                ${isToday_ && !isSelected_ ? 'bg-primary/20 text-primary font-bold' : ''}
-                ${isSelected_ ? 'bg-primary text-primary-foreground font-bold' : ''}
+                ${isSelected_ ? 'bg-primary text-primary-foreground font-bold' : isToday_ ? 'bg-primary/20 text-primary font-bold' : ''}
               `}
             >
               {date.getDate()}

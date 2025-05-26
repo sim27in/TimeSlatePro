@@ -166,7 +166,7 @@ export default function PublicBookingPage() {
                 </CardContent>
               </Card>
 
-              {selectedDate && selectedService && (
+              {selectedDate && (
                 <Card className="card-hover glass dark:glass-dark">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2">
@@ -178,13 +178,20 @@ export default function PublicBookingPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <TimeSlots
-                      slug={slug!}
-                      selectedDate={selectedDate}
-                      selectedTime={selectedTime}
-                      onTimeSelect={setSelectedTime}
-                      service={selectedService}
-                    />
+                    {selectedService ? (
+                      <TimeSlots
+                        slug={slug!}
+                        selectedDate={selectedDate}
+                        selectedTime={selectedTime}
+                        onTimeSelect={setSelectedTime}
+                        service={selectedService}
+                      />
+                    ) : (
+                      <div className="text-center py-8 text-muted-foreground">
+                        <Clock className="mx-auto h-8 w-8 mb-2 opacity-50" />
+                        <p>Please select a service first to see available time slots</p>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               )}
