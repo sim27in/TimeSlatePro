@@ -13,7 +13,7 @@
   --card-foreground: 0 0% 18%; /* #2D2D2D */
   --border: 214 31% 91%; /* #e2e8f0 */
   --input: 214 31% 91%; /* #e2e8f0 */
-  --primary: 24 100% 50%; /* #FF6B00 - Orange */
+  --primary: 24 85% 55%; /* #E8622C - Softer Orange */
   --primary-foreground: 0 0% 100%; /* #ffffff */
   --secondary: 210 40% 96%; /* #F5F7FA */
   --secondary-foreground: 0 0% 18%; /* #2D2D2D */
@@ -68,7 +68,7 @@
   }
   
   .gradient-secondary {
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, #ff8f3d 100%);
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   }
 
   .gradient-hero {
@@ -80,5 +80,45 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
   }
 }
