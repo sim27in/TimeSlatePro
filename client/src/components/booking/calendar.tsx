@@ -30,7 +30,9 @@ export default function BookingCalendar({ selectedDate, onDateSelect }: BookingC
   };
 
   const isPastDate = (date: Date) => {
-    return date < today && !isToday(date);
+    const dateOnly = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    return dateOnly < todayOnly;
   };
 
   const isCurrentMonth = (date: Date) => {
@@ -89,7 +91,6 @@ export default function BookingCalendar({ selectedDate, onDateSelect }: BookingC
           <ChevronRight className="h-4 w-4" />
         </Button>
       </div>
-
       {/* Day headers */}
       <div className="grid grid-cols-7 gap-1 mb-2">
         {dayNames.map((day) => (
@@ -98,7 +99,6 @@ export default function BookingCalendar({ selectedDate, onDateSelect }: BookingC
           </div>
         ))}
       </div>
-
       {/* Calendar grid */}
       <div className="grid grid-cols-7 gap-1">
         {days.map((date, index) => {
@@ -118,15 +118,7 @@ export default function BookingCalendar({ selectedDate, onDateSelect }: BookingC
                 }
               }}
               disabled={isPast}
-              className={`
-                h-10 w-full text-sm rounded-md transition-colors font-medium
-                ${isPast 
-                  ? 'text-muted-foreground/30 cursor-not-allowed bg-muted/20' 
-                  : 'text-foreground hover:bg-primary/10 hover:text-primary cursor-pointer'
-                }
-                ${!isCurrent ? 'text-muted-foreground/50' : 'text-foreground'}
-                ${isSelected_ ? 'bg-primary text-primary-foreground font-bold' : isToday_ ? 'bg-primary/20 text-primary font-bold' : ''}
-              `}
+              className="h-10 w-full text-sm rounded-md transition-colors hover:bg-primary/10 hover:text-primary cursor-pointer font-bold text-[#fafafa] bg-[#1e1e1e]"
             >
               {date.getDate()}
             </button>
