@@ -109,8 +109,8 @@ export default function Landing() {
                 </Button>
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="text-lg px-8 border-slate-300 text-slate-600 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-400 dark:hover:bg-slate-800/50"
+                  variant="outline" 
+                  className="text-lg px-8 border-blue-200 text-blue-700 hover:bg-blue-50 dark:border-blue-800 dark:text-blue-300 dark:hover:bg-blue-900/30"
                 >
                   <Play className="mr-2 h-5 w-5" />
                   Watch Demo

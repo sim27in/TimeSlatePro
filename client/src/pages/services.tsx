@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Edit, Trash2, Clock, DollarSign } from "lucide-react";
+import { Plus, Edit, Trash2, Clock, DollarSign, Globe, Copy, ExternalLink } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -311,6 +311,61 @@ export default function Services() {
               </DialogContent>
             </Dialog>
           </div>
+
+          {/* Public Booking URL Section - Show when user has services */}
+          {services.length > 0 && (
+            <Card className="mb-8 bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
+              <CardHeader>
+                <div className="flex items-center space-x-3">
+                  <div className="h-10 w-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Globe className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-xl">Your Public Booking Page</CardTitle>
+                    <CardDescription className="text-base">
+                      Share this link with clients so they can book your services directly
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center space-x-3 p-4 bg-background/50 rounded-lg border">
+                  <Input
+                    value={`${window.location.origin}/book/your-username`}
+                    readOnly
+                    className="font-mono text-sm"
+                  />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      navigator.clipboard.writeText(`${window.location.origin}/book/your-username`);
+                      toast({
+                        title: "Copied!",
+                        description: "Booking URL copied to clipboard",
+                      });
+                    }}
+                  >
+                    <Copy className="h-4 w-4 mr-1" />
+                    Copy
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    asChild
+                  >
+                    <a href="/book/your-username" target="_blank">
+                      <ExternalLink className="h-4 w-4 mr-1" />
+                      Preview
+                    </a>
+                  </Button>
+                </div>
+                <p className="text-sm text-muted-foreground mt-3">
+                  💡 Tip: Customize your booking page URL by updating your profile settings
+                </p>
+              </CardContent>
+            </Card>
+          )}
 
           {services.length === 0 ? (
             <Card>
