@@ -1,6 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { 
   Calendar, 
   Clock, 
@@ -25,15 +26,16 @@ export default function Sidebar() {
   const { user } = useAuth();
 
   return (
-    <div className="flex flex-col w-64 bg-white border-r border-border">
+    <div className="flex flex-col w-64 bg-background dark:bg-background border-r border-border dark:border-border">
       {/* Logo */}
-      <div className="flex items-center h-16 px-6 border-b border-border">
+      <div className="flex items-center justify-between h-16 px-6 border-b border-border">
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
             <Calendar className="text-primary-foreground h-4 w-4" />
           </div>
           <span className="text-xl font-bold text-foreground">TimeSlate</span>
         </div>
+        <ThemeToggle />
       </div>
 
       {/* Navigation */}
