@@ -43,7 +43,9 @@ export default function BookingCalendar({ selectedDate, onDateSelect }: BookingC
 
   const handleDateClick = (date: Date) => {
     if (isPastDate(date)) return;
-    onDateSelect(date.toISOString().split('T')[0]);
+    const dateString = date.toISOString().split('T')[0];
+    console.log('Date clicked:', dateString); // Debug log
+    onDateSelect(dateString);
   };
 
   const formatDate = (date: Date) => {
@@ -108,17 +110,23 @@ export default function BookingCalendar({ selectedDate, onDateSelect }: BookingC
           return (
             <button
               key={index}
-              onClick={() => handleDateClick(date)}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (!isPast) {
+                  handleDateClick(date);
+                }
+              }}
               disabled={isPast}
               className={`
-                h-10 w-full text-sm rounded-md transition-all duration-200 font-medium
+                h-10 w-full text-sm rounded-md transition-colors font-medium
                 ${isPast 
                   ? 'text-muted-foreground/30 cursor-not-allowed bg-muted/20' 
-                  : 'text-foreground hover:bg-primary/10 hover:text-primary cursor-pointer border border-transparent hover:border-primary/20'
+                  : 'text-foreground hover:bg-primary/10 hover:text-primary cursor-pointer'
                 }
                 ${!isCurrent ? 'text-muted-foreground/50' : 'text-foreground'}
-                ${isToday_ && !isSelected_ ? 'bg-primary/20 text-primary font-bold border-primary/30' : ''}
-                ${isSelected_ ? 'bg-primary text-primary-foreground font-bold shadow-lg scale-105 border-primary' : ''}
+                ${isToday_ && !isSelected_ ? 'bg-primary/20 text-primary font-bold' : ''}
+                ${isSelected_ ? 'bg-primary text-primary-foreground font-bold' : ''}
               `}
             >
               {date.getDate()}
